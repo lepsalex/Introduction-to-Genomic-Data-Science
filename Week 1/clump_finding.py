@@ -11,11 +11,11 @@ def ClumpFinding(genome, k, L, t):
 
     for i in range(1, len(genome) - L):
 
-        print(i)
-
         first_pattern = genome[(i-1):k]
         index = PatternToNumber(first_pattern)
         frequency_array[index] = frequency_array[index] - 1
+
+        print("First: ", first_pattern)
 
         if frequency_array[index] >= t:
             clump[index] = 1
