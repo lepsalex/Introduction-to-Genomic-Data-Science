@@ -1,5 +1,5 @@
-# haystack = 'GCGCG'
-# needle = 'GCG'
+haystack = 'CGCGATACGTTACATACATGATAGACCGCGCGCGATCATATCGCGATTATC'
+needle = 'CGCG'
 
 def PatternCount(Text, Pattern):
     count = 0
@@ -11,8 +11,8 @@ def PatternCount(Text, Pattern):
 
 # print(PatternCount(haystack, needle))
 
-text = 'ACGTTGCATGTCGCATGATGCATGAGAGCT'
-kmer = 4
+text = 'CGGAGGACTCTAGGTAACGCTTATCAGGTCCATAGGACATTCA'
+kmer = 3
 
 # fill in your FrequentWords() function here along with any subroutines you need.
 def FrequentWords(Text, k):

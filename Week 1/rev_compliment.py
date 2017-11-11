@@ -14,5 +14,4 @@ def ReverseComplement(Pattern):
     return complement[::-1]
 
 
-
-print(ReverseComplement('AAAACCCGGT'))
+print(ReverseComplement('TTGTGTC'))

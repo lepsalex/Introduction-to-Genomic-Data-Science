@@ -7,8 +7,14 @@ def PatternMatching(Pattern, Genome):
     
     return positions
 
-with open("Vibrio_cholerae.txt", "r") as genomeFile:
-    genome = genomeFile.read().replace("\n", "")
-    pattern = "CTTGATCAT"
-    positions = PatternMatching(pattern, genome)
-    print(" ".join(positions))
+# with open("Vibrio_cholerae.txt", "r") as genomeFile:
+#     genome = genomeFile.read().replace("\n", "")
+#     pattern = "CTTGATCAT"
+#     positions = PatternMatching(pattern, genome)
+#     print(" ".join(positions))
+
+
+pattern = "CGC"
+genome = "ATGACTTCGCTGTTACGCGC"
+positions = PatternMatching(pattern, genome)
+print(positions)
