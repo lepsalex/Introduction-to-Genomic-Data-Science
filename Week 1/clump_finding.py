@@ -11,11 +11,9 @@ def ClumpFinding(genome, k, L, t):
 
     for i in range(1, len(genome) - L):
 
-        first_pattern = genome[(i-1):k]
+        first_pattern = genome[(i-1):(i+k-1)]
         index = PatternToNumber(first_pattern)
         frequency_array[index] = frequency_array[index] - 1
-
-        print("First: ", first_pattern)
 
         if frequency_array[index] >= t:
             clump[index] = 1
@@ -79,7 +77,7 @@ def NumberToSymbol(num):
     return mapping[num]
 
 
-# Test
+# # Test
 # genome = "CGGACTCGACAGATGTGAAGAACGACAATGTGAAGACTCGACACGACAGAGTGAAGAGAAGAGGAAACATTGTAA"
 # output = ClumpFinding(genome, 5, 50, 4)
 # print(output)
@@ -88,11 +86,11 @@ def NumberToSymbol(num):
 
 
 # Test 2
-genome = "AAAACGTCGAAAAA"
-output = ClumpFinding(genome, 2, 4, 2)
-print(output)
+# genome = "AAAACGTCGAAAAA"
+# output = ClumpFinding(genome, 2, 4, 2)
+# print(output)
 
-# # Test 3 (Large Data)
+# # # Test 3 (Large Data)
 # with open("E_coli.txt", "r") as genomeFile:
 #     genome = genomeFile.read().replace("\n", "")
 #     output = ClumpFinding(genome, 9, 500, 3)
