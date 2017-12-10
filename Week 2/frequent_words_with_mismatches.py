@@ -4,33 +4,36 @@ def FrequentWordsWithMismatches(Text, k, d):
     FrequentPatterns = set()
     Neighborhoods = []
     NeighborhoodArray = []
-
+    
     Index = []
     Count = []
 
+    if (len(Text) == k and d == 0):
+        return [Text]
+
     for i in range(len(Text) - k):
-        Neighborhoods.append(Neighbors(Text[i:i + k], d))
+        Neighborhoods.append(Neighbors(Text[i:(i + k)], d))
 
     for Neighborhood in Neighborhoods:
-        NeighborhoodArray = NeighborhoodArray + list(Neighborhood)
+        for Pattern in Neighborhood:
+            NeighborhoodArray.append(Pattern)
 
-    for i in range(len(Neighborhoods)):
+    for i in range(len(NeighborhoodArray)):
         Pattern = NeighborhoodArray[i]
         Index.append(PatternToNumber(Pattern))
         Count.append(1)
 
     SortedIndex = sorted(Index)
-
-    for i in range(len(Neighborhoods) - 1):
+    for i in range(len(SortedIndex) - 1):
         if SortedIndex[i] == SortedIndex[i + 1]:
-            Count[i + 1] = Count[i] + 1
+            patternNum = SortedIndex[i]
+            Count[patternNum] = Count[patternNum] + 1
 
     maxCount = max(Count)
-    print(maxCount)
 
-    for i in range(len(Neighborhoods)):
+    for i in range(len(Count)):
         if Count[i] == maxCount:
-            Pattern = NumberToPattern(SortedIndex[i], k)
+            Pattern = NumberToPattern(i, k)
             FrequentPatterns.add(Pattern)
 
     return FrequentPatterns
@@ -103,10 +106,10 @@ def NumberToSymbol(num):
 
 
 # TEST
-text = "ACGTTGCATGTCGCATGATGCATGAGAGCT"
+text = "AAT"
 
-k = 4
-d = 1
+k = 3
+d = 0
 
 result = FrequentWordsWithMismatches(text, k, d)
 print(result)
