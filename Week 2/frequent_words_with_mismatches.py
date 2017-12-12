@@ -6,12 +6,9 @@ def FrequentWordsWithMismatches(Text, k, d):
     NeighborhoodArray = []
     
     Index = []
-    Count = []
+    Count = [0] * ((4**k))
 
-    if (len(Text) == k and d == 0):
-        return [Text]
-
-    for i in range(len(Text) - k):
+    for i in range(len(Text) - k + 1):
         Neighborhoods.append(Neighbors(Text[i:(i + k)], d))
 
     for Neighborhood in Neighborhoods:
@@ -20,8 +17,9 @@ def FrequentWordsWithMismatches(Text, k, d):
 
     for i in range(len(NeighborhoodArray)):
         Pattern = NeighborhoodArray[i]
-        Index.append(PatternToNumber(Pattern))
-        Count.append(1)
+        PatternNumber = PatternToNumber(Pattern)
+        Count[PatternNumber] = 1
+        Index.append(PatternNumber)
 
     SortedIndex = sorted(Index)
     for i in range(len(SortedIndex) - 1):
@@ -43,7 +41,7 @@ def Neighbors(Pattern, d):
     nucleotides = {"A", "C", "G", "T"}
 
     if d == 0:
-        return set(Pattern)
+        return {Pattern}
 
     if len(Pattern) == 1:
         return nucleotides
@@ -105,11 +103,46 @@ def NumberToSymbol(num):
     return mapping[num]
 
 
-# TEST
-text = "AAT"
+# TEST 0
+text = "ACGTTGCATGTCGCATGATGCATGAGAGCT"
+k = 4
+d = 1
+assert FrequentWordsWithMismatches(text, k, d) == {'ATGC', 'ATGT', 'GATG'}
 
+# TEST 1
+text = "AAAAAAAAAA"
+k = 2
+d = 1
+assert FrequentWordsWithMismatches(text, k, d) == {'AA', 'AC', 'AG', 'CA', 'AT', 'GA', 'TA'}
+
+# TEST 2
+text = "AGTCAGTC"
+k = 4
+d = 2
+assert FrequentWordsWithMismatches(text, k, d) == {'TCTC', 'CGGC', 'AAGC', 'TGTG', 'GGCC', 'AGGT', 'ATCC', 'ACTG', 'ACAC', 'AGAG', 'ATTA', 'TGAC', 'AATT', 'CGTT', 'GTTC', 'GGTA', 'AGCA', 'CATC'}
+
+# TEST 3
+text = "AATTAATTGGTAGGTAGGTA"
+k = 4
+d = 0
+assert FrequentWordsWithMismatches(text, k, d) == {'GGTA'}
+
+# TEST 4
+text = "ATA"
+k = 3
+d = 1
+# print(FrequentWordsWithMismatches(text, k, d))
+assert FrequentWordsWithMismatches(text, k, d) == {'GTA', 'ACA', 'AAA', 'ATC', 'ATA', 'AGA', 'ATT', 'CTA', 'TTA', 'ATG'}
+
+# TEST 5
+text = "AAT"
 k = 3
 d = 0
+# print(sorted(FrequentWordsWithMismatches(text, k, d)))
+assert FrequentWordsWithMismatches(text, k, d) == {'AAT'}
 
-result = FrequentWordsWithMismatches(text, k, d)
-print(result)
+# TEST 5
+text = "TAGCG"
+k = 2
+d = 1
+assert FrequentWordsWithMismatches(text, k, d) == {'GG', 'TG'}
