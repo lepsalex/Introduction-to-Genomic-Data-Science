@@ -11,6 +11,8 @@ MotifEnumeration(Dna, k, d)
         return Patterns
 """
 
+from functools import reduce
+
 # Write your MotifEnumeration() function here along with any subroutines you need.
 # This function should return a list of strings.
 def MotifEnumeration(dna, k, d):
@@ -18,11 +20,9 @@ def MotifEnumeration(dna, k, d):
     initLine = dna[0]
     for initialKmer in [initLine[x:x + k] for x in range(0, len(initLine) - k + 1)]:
         for neighborK in Neighbors(initialKmer, d):
-            for line in dna[1:]:
-                if (ApproximatePatternCount(line, neighborK, d) > 0):
-                    Patterns.add(neighborK)
-                else:
-                    Patterns.discard(neighborK)
+            isValid = reduce(lambda acc, curr: False if acc == False else True if ApproximatePatternCount(curr, neighborK, d) > 0 else False, dna[1:], True)
+            if (isValid):
+                Patterns.add(neighborK)
     return sorted(Patterns)
 
 def Neighbors(Pattern, d):
