@@ -19,16 +19,10 @@ def RandomizedMotifSearch(Dna, k, t):
 # N times.  It should return a list of strings.
 def RepeatedRandomizedMotifSearch(Dna, k, t, N):
     bestMotifs = GenerateRandomMotifs(Dna, k, t)
-    retries = 0
-    while True:
+    for _ in range(N):
         newMotifs = RandomizedMotifSearch(Dna, k, t)
         if Score(newMotifs) < Score(bestMotifs):
             bestMotifs = newMotifs
-            retries = 0
-        else:
-            retries += 1
-        if retries > N:
-            break
 
     return bestMotifs
 
